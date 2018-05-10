@@ -394,7 +394,7 @@ function init() {
     })
   });
 
-  HELP = fs.readFileSync(`readme.md`, 'utf8')
+  HELP = fs.readFileSync(`README.md`, 'utf8')
 }
 
 function randomIntFromInterval(min, max) {

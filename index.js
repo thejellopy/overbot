@@ -560,7 +560,7 @@ function doBid(chat, params) {
   CHANNEL.send(`:money_with_wings: **${item}** ${time.fromNow()} จะลงตลาด`)
 
   setTimeout((chat, item, time) => {
-    CHANNEL.send(`:money_with_wings: ${chat.member} **${item}** กำลังจะลงคลาด ${time.fromNow()} เตรียมไปประมูลของด้วย!`)
+    CHANNEL.send(`:money_with_wings: ${chat.member} **${item}** กำลังจะลงตลาด ${time.fromNow()} เตรียมไปประมูลของด้วย!`)
   }, time.subtract(1, 'minutes').diff(moment(), 'milliseconds'), chat, item, time);
 }
 

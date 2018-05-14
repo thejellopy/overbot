@@ -379,7 +379,7 @@ let ASCII = {
   panda: []
 }
 
-let HELP
+let HELP = {}
 
 let CHANNEL
 
@@ -394,7 +394,15 @@ function init() {
     })
   });
 
-  HELP = fs.readFileSync(`README.md`, 'utf8')
+  (() => {
+    let path = 'help'
+
+    fs.readdir(path, (error, files) => {
+      files.forEach(file => {
+        HELP[file.replace('.md', '')] = fs.readFileSync(`${path}/${file}`, 'utf8')
+      });
+    })
+  })()
 }
 
 function randomIntFromInterval(min, max) {
@@ -451,10 +459,28 @@ function calculateEnchant(type, level, stack) {
 
   return `
 ${title} (**${data.name}**)
-Enchant Level: **${level - 1}** -> **${level}**
+ระดับการตีบวก: **${level - 1}** -> **${level}**
 Fail Stack: **${stack}**
 
-Chance: **${data.chance.toFixed(2)}%**
+โอกาสสำเร็จ: **${data.chance.toFixed(2)}%**
+`
+}
+
+function showEnchant(type, level) {
+  let data = FAIL_STACK_TABLE[type][level]
+
+  if (! data) {
+    return false
+  }
+
+  let title = FAIAL_STACK_TITLE[type]
+
+  return`
+${title} (**${data.name}**)
+ระดับการตีบวก: **${level - 1}** -> **${level}**
+
+โอกาสสำเร็จต่ำสุด: **${data.base.toFixed(2)}%** (**0** Fail Stack)
+โอกาสสำเร็จสูงสุด: **${data.maxChance.toFixed(2)}%** (**${data.stackCap}** Fail Stack)
 `
 }
 
@@ -464,28 +490,30 @@ function randomASCIIArt(type) {
   return ASCII[type][randomIntFromInterval(1, size) - 1]
 }
 
-function help() {
-  return HELP
+function help(type) {
+  if (HELP[type] === undefined) {
+    return ':no_entry_sign: ไม่เจอข้อมูลที่ค้นหา'
+  }
+
+  return HELP[type]
 }
 
-function doFs(chat, params) {
-  if (params.length !== 4) {
-    CHANNEL.send(':no_entry_sign: รูปแบบคำสั่งไม่ถูกต้อง')
-
-    return
-  }
-
-  let equipmentType = convertEquipmentType(params[1].toLocaleLowerCase())
+function doFs(chat, equipmentType, enchantLevel, failStack = undefined) {
+  equipmentType = convertEquipmentType(equipmentType)
 
   if (! equipmentType) {
-    CHANNEL.send(':no_entry_sign: ไม่เจอข้อมูลอุปกรณ์ที่เลือก')
+    CHANNEL.send(':no_entry_sign: ไม่เจอข้อมูลอุปกรณ์สวมใส่ที่เลือก')
 
     return
   }
 
-  let enchantLevel = parseInt(params[2])
-  let failStack = parseInt(params[3])
-  let response = calculateEnchant(equipmentType, enchantLevel, failStack)
+  let response
+
+  if (failStack === undefined) {
+    response = showEnchant(equipmentType, enchantLevel)
+  } else {
+    response = calculateEnchant(equipmentType, enchantLevel, failStack)
+  }
 
   if (! response) {
     CHANNEL.send(':no_entry_sign: ไม่เจอข้อมูล')
@@ -496,14 +524,8 @@ function doFs(chat, params) {
   CHANNEL.send(response)
 }
 
-function doEnchant(chat, params) {
-  if (params.length !== 4) {
-    CHANNEL.send(':no_entry_sign: รูปแบบคำสั่งไม่ถูกต้อง')
-
-    return
-  }
-
-  let equipmentType = convertEquipmentType(params[1].toLocaleLowerCase())
+function doEnchant(chat, equipmentType, enchantLevel, failStack) {
+  equipmentType = convertEquipmentType(equipmentType)
 
   if (! equipmentType) {
     CHANNEL.send(':no_entry_sign: ไม่เจอข้อมูลอุปกรณ์ที่เลือก')
@@ -511,36 +533,19 @@ function doEnchant(chat, params) {
     return
   }
 
-  let enchantLevel = parseInt(params[2])
-  let failStack = parseInt(params[3])
   let response = calculateEnchantChance(equipmentType, enchantLevel, failStack)
   let chance = parseInt(response.chance * 100)
   let random = randomIntFromInterval(1, 10000)
-  let item = FAIAL_STACK_TITLE[equipmentType]
+  let title = FAIAL_STACK_TITLE[equipmentType]
 
   if (random <= chance) {
-    CHANNEL.send(`ท่าน [${chat.member}] ได้รับ [${response.name} ${item}] เพิ่มประสิทธิภาพสำเร็จ`)
+    CHANNEL.send(`ท่าน [${chat.member}] ได้รับ [${response.name} ${title}] เพิ่มประสิทธิภาพสำเร็จ`)
   } else {
-    CHANNEL.send(`[${chat.member}] พ่ายแพ้ [${response.name} ${item}] เพิ่มประสิทธิภาพล้มเหลว`)
+    CHANNEL.send(`[${chat.member}] พ่ายแพ้ [${response.name} ${title}] เพิ่มประสิทธิภาพล้มเหลว`)
   }
 }
 
-function doBid(chat, params) {
-  if (params.length !== 3) {
-    CHANNEL.send(':no_entry_sign: รูปแบบคำสั่งไม่ถูกต้อง')
-
-    return
-  }
-
-  let item = params[1]
-  let times = params[2].split('.')
-
-  if (times.length !== 2) {
-    CHANNEL.send(':no_entry_sign: รูปแบบเวลาไม่ถูกต้อง')
-
-    return
-  }
-
+function doBid(chat, item, times) {
   let time = moment().set({
     hour: parseInt(times[0]),
     minute: parseInt(times[1]),
@@ -557,23 +562,23 @@ function doBid(chat, params) {
     return
   }
 
-  CHANNEL.send(`:money_with_wings: **${item}** ${time.fromNow()} จะลงตลาด`)
+  CHANNEL.send(`:money_with_wings: **${item}** ${time.fromNow()} จะลงตลาด (${time.format('HH:mm')})`)
 
   setTimeout((chat, item, time) => {
-    CHANNEL.send(`:money_with_wings: ${chat.member} **${item}** กำลังจะลงตลาด ${time.fromNow()} เตรียมไปประมูลของด้วย!`)
-  }, time.subtract(1, 'minutes').diff(moment(), 'milliseconds'), chat, item, time);
+    CHANNEL.send(`:money_with_wings: ${chat.member} **${item}** กำลังจะลงตลาด ${time.fromNow()} (${time.format('HH:mm')}) เตรียมไปประมูลของด้วย!`)
+  }, time.clone().subtract(1, 'minutes').diff(moment(), 'milliseconds'), chat, item, time);
 }
 
-function doPanda(chat, params) {
+function doPanda(chat) {
   CHANNEL.send(randomASCIIArt('panda'))
 }
 
-function doSheep(chat, params) {
+function doSheep(chat) {
   CHANNEL.send(randomASCIIArt('sheep'))
 }
 
-function doHelp(chat, params) {
-  CHANNEL.send(help())
+function doHelp(chat, type) {
+  CHANNEL.send(help(type))
 }
 
 client.on('ready', () => {
@@ -582,30 +587,54 @@ client.on('ready', () => {
   CHANNEL = client.channels.find('id', process.env.CHANNEL_ID)
 });
 
-client.on('message', message => {
-  let content = message.content
+client.on('message', chat => {
+  let content = chat.content.toLocaleLowerCase()
 
   if (content.startsWith('!')) {
     let params = content.split(' ')
 
     switch (params[0]) {
       case '!fs':
-        return doFs(message, params)
+        if (params.length !== 3 && params.length !== 4) {
+          return doHelp(chat, 'fs')
+        }
+
+        let failStack = parseInt(params[3])
+
+        if (! failStack) {
+          failStack = undefined
+        }
+
+        return doFs(chat, params[1], parseInt(params[2]), failStack)
 
       case '!enc':
-        return doEnchant(message, params)
+        if (params.length !== 4) {
+          return doHelp(chat, 'enc')
+        }
+
+        return doEnchant(chat, params[1], parseInt(params[2]), parseInt(params[3]))
       
       case '!bid':
-        return doBid(message, params)
+        if (params.length !== 3) {
+          return doHelp(chat, 'bid')
+        }
+      
+        let times = params[2].split('.')
+      
+        if (times.length !== 2) {
+          return doHelp(chat, 'bid')
+        }
+
+        return doBid(chat, params[1], times)
 
       case '!panda':
-        return doPanda(message, params)
+        return doPanda(chat)
 
       case '!sheep':
-        return doSheep(message, params)
+        return doSheep(chat)
 
       default:
-        return doHelp(message, params)
+        return doHelp(chat, 'help')
     }
   }
 });

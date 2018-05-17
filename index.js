@@ -374,6 +374,109 @@ const FAIAL_STACK_TITLE = {
   armor: ':shield: **เครื่องป้องกัน**'
 }
 
+const ENCHANT_PLACE = [
+  {
+    name: 'โบสถ์ไฮเดล',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446032733832085515/2018-05-16_380701394.JPG'
+  },
+  {
+    name: 'หน้าแก๊งแก๊งแก๊ง ไฮเดล',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446032964891967498/2018-05-16_380798020.JPG'
+  },
+  {
+    name: 'บูชาเทพเจ้าแกะ ณ โบสถ์ไฮเดล',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446033015731388436/2018-03-19_336306966.JPG'
+  },
+  {
+    name: 'ริมแม่นำ้เดมิข้างคลังไฮเดล เอาตัวจุ่มนำ้ครึ่งนึง',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446033204017758209/2018-05-16_380850890.JPG'
+  },
+  {
+    name: 'ศาลเจ้าบ้านคุณเจา',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446033420955418634/2018-05-16_380908777.JPG'
+  },
+  {
+    name: 'ศาลเจ้าไอตู้',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446033604011622420/2018-05-16_380950478.JPG'
+  },
+  {
+    name: 'หน้าตลาดกลางสามแยกไฮเดล',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446033824904642570/2018-05-16_380994697.JPG'
+  },
+  {
+    name: 'ข้างซีป๊อป',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446034420135362570/2018-05-16_381114561.JPG'
+  },
+  {
+    name: 'บ้านมึงเอง',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446034541459669002/2018-05-16_381180698.JPG'
+  },
+  {
+    name: 'หอระฆังโบสถ์ไฮเดล',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446034804786593802/2018-05-16_381242166.JPG'
+  },
+  {
+    name: 'หลังคาคลังไฮเดล',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446035211164057610/2018-05-16_381334078.JPG'
+  },
+  {
+    name: 'ก้อนหินหลังคลังไฮเดล',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446035363811819540/2018-05-16_381374383.JPG'
+  },
+  {
+    name: 'บนหลังคาคลังเวเรีย',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446036773517262858/unknown.png'
+  },
+  {
+    name: 'เสาข้างตลาดเวเรีย',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446037069156843520/unknown.png'
+  },
+  {
+    name: 'หน้าnpcซ่อมของเวเรีย',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446037804804472832/unknown.png'
+  },
+  {
+    name: 'ผาแห่งความสิ้นหวัง ริมทะเลเวเรีย',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446038660182179850/2018-05-16_45889630.JPG'
+  },
+  {
+    name: '4 แยกแถวคลังเวเรียพร้อมถอยหลัง 3 ก้าว',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446039529263071244/unknown.png'
+  },
+  {
+    name: 'ร้านซื้อของทำอาหารเวเรีย',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446040122312622080/unknown.png'
+  },
+  {
+    name: 'ไปแบกแกะมาในโบสถ์ไฮเดล',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446041069927268362/2018-03-08_386584571.JPG'
+  },
+  {
+    name: 'หน้าบ้าน FrostIceEiEi',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446042056176173057/unknown.png'
+  },
+  {
+    name: 'หน้าแอลคนลดของ',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446042809527566355/unknown.png'
+  },
+  {
+    name: 'บนน้ำพุไฮเดล',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446043217205657611/unknown.png'
+  },
+  {
+    name: 'วิหารคามาซิลฟ์',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446044378373292043/unknown.png'
+  },
+  {
+    name: 'ชั้น 2 บ้านหัวกิล',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446045418120413184/unknown.png'
+  },
+  {
+    name: 'แมวข้างแก่งแก้งแก๊ง',
+    image: 'https://cdn.discordapp.com/attachments/446030495923437579/446046018417590283/unknown.png'
+  }
+]
+
 let ASCII = {
   sheep: [],
   panda: []
@@ -490,6 +593,12 @@ function randomASCIIArt(type) {
   return ASCII[type][randomIntFromInterval(1, size) - 1]
 }
 
+function randomEnchantPlace() {
+  let size = ENCHANT_PLACE.length
+
+  return ENCHANT_PLACE[randomIntFromInterval(1, size) - 1]
+}
+
 function help(type) {
   if (HELP[type] === undefined) {
     return ':no_entry_sign: ไม่เจอข้อมูลที่ค้นหา'
@@ -577,6 +686,16 @@ function doSheep(chat) {
   CHANNEL.send(randomASCIIArt('sheep'))
 }
 
+function doEnchantPlace(chat) {
+  let data = randomEnchantPlace()
+
+  CHANNEL.send(`
+**${data.name}**
+`, {
+  file: data.image
+})
+}
+
 function doHelp(chat, type) {
   CHANNEL.send(help(type))
 }
@@ -627,11 +746,14 @@ client.on('message', chat => {
 
         return doBid(chat, params[1], times)
 
-      case '!panda':
+      case '!บูชาเทพเจ้าแพนด้า':
         return doPanda(chat)
 
-      case '!sheep':
+      case '!บูชาเทพเจ้าแกะ':
         return doSheep(chat)
+
+      case '!ตีบวกไหนดีวะ':
+        return doEnchantPlace()
 
       default:
         return doHelp(chat, 'help')

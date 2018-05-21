@@ -1,5 +1,6 @@
 require('dotenv').load()
 
+const git = require('git-rev')
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const fs = require('fs')
@@ -700,31 +701,37 @@ function doHelp(chat, type) {
   CHANNEL.send(help(type))
 }
 
+function doClientVerbose(event) {
+  git.short(function (commit) {
+    CHANNEL.send(`:panda_face: (${commit}) client.${event}`)
+  })
+}
+
 client.on('ready', () => {
   init()
 
   CHANNEL = client.channels.find('id', process.env.CHANNEL_ID)
-  CHANNEL.send(':panda_face: client.ready')
+  doClientVerbose('ready')
 });
 
 client.on('reconnecting', () => {
-  CHANNEL.send(':panda_face: client.reconnecting')
+  doClientVerbose('reconnecting')
 });
 
 client.on('disconnect', () => {
-  CHANNEL.send(':panda_face: client.disconnect')
+  doClientVerbose('disconnect')
 });
 
 client.on('resume', () => {
-  CHANNEL.send(':panda_face: client.resume')
+  doClientVerbose('resume')
 });
 
 client.on('warn', () => {
-  CHANNEL.send(':panda_face: client.warn')
+  doClientVerbose('warn')
 });
 
 client.on('error', () => {
-  CHANNEL.send(':panda_face: client.error')
+  doClientVerbose('error')
 });
 
 client.on('message', chat => {

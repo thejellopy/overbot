@@ -563,9 +563,9 @@ function calculateEnchant(type, level, stack) {
   return `
 ${title} (**${data.name}**)
 ระดับการตีบวก: **${level - 1}** -> **${level}**
-Fail Stack: **${stack}**
 
-โอกาสสำเร็จ: **${data.chance.toFixed(2)}%**
+โอกาสสำเร็จ: **${data.chance.toFixed(2)}%** (**${stack}** Fail Stack)
+โอกาสสำเร็จสูงสุด: **${data.maxChance.toFixed(2)}%** (**${data.stackCap}** Fail Stack)
 `
 }
 

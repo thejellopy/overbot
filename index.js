@@ -704,6 +704,27 @@ client.on('ready', () => {
   init()
 
   CHANNEL = client.channels.find('id', process.env.CHANNEL_ID)
+  CHANNEL.send(':panda_face: client.ready')
+});
+
+client.on('reconnecting', () => {
+  CHANNEL.send(':panda_face: client.reconnecting')
+});
+
+client.on('disconnect', () => {
+  CHANNEL.send(':panda_face: client.disconnect')
+});
+
+client.on('resume', () => {
+  CHANNEL.send(':panda_face: client.resume')
+});
+
+client.on('warn', () => {
+  CHANNEL.send(':panda_face: client.warn')
+});
+
+client.on('error', () => {
+  CHANNEL.send(':panda_face: client.error')
 });
 
 client.on('message', chat => {

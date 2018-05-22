@@ -428,6 +428,11 @@ const ENCHANT_PLACE = [
   }
 ]
 
+const BID_DELAY_TABLE = {
+  item: 15,
+  horse: 10
+}
+
 let ASCII = {
   sheep: [],
   panda: []
@@ -616,7 +621,7 @@ function doEnchant(chat, equipmentType, enchantLevel, failStack) {
   }
 }
 
-function doBid(chat, item, times) {
+function doBid(chat, type, item, times) {
   let time = moment().set({
     hour: parseInt(times[0]),
     minute: parseInt(times[1]),
@@ -624,10 +629,12 @@ function doBid(chat, item, times) {
     millisecond: 0,
   })
 
-  time.add(15, 'minutes')
+  let delay = BID_DELAY_TABLE[type]
+
+  time.add(delay, 'minutes')
   let timeDiffInMinute = time.diff(moment(), 'minutes')
 
-  if (timeDiffInMinute < 0 || timeDiffInMinute > 15) {
+  if (timeDiffInMinute < 0 || timeDiffInMinute > delay) {
     CHANNEL.send(':no_entry_sign: เวลาประมูลของไม่ถูกต้อง')
 
     return
@@ -727,13 +734,26 @@ client.on('message', chat => {
           return doHelp(chat, 'bid')
         }
       
-        let times = params[2].split('.')
+        let bidTimes = params[2].split('.')
       
-        if (times.length !== 2) {
+        if (bidTimes.length !== 2) {
           return doHelp(chat, 'bid')
         }
 
-        return doBid(chat, params[1], times)
+        return doBid(chat, 'item', params[1], bidTimes)
+      
+      case '!horse':
+        if (params.length !== 3) {
+          return doHelp(chat, 'horse')
+        }
+      
+        let horseTimes = params[2].split('.')
+      
+        if (horseTimes.length !== 2) {
+          return doHelp(chat, 'horse')
+        }
+
+        return doBid(chat, 'horse', params[1], horseTimes)
 
       case '!บูชาเทพเจ้าแพนด้า':
         return doPanda(chat)

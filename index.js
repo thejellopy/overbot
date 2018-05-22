@@ -13,36 +13,31 @@ const FAIL_STACK_TABLE = {
       name: 'เอก',
       base: 15,
       perStack: 1.5,
-      stackCap: 25,
-      maxChance: 52.5
+      stackCap: 25
     },
     2: {
       name: 'โท',
       base: 7.5,
       perStack: 0.75,
-      stackCap: 35,
-      maxChance: 33.75
+      stackCap: 35
     },
     3: {
       name: 'ตรี',
       base: 5,
       perStack: 0.5,
-      stackCap: 44,
-      maxChance: 27
+      stackCap: 44
     },
     4: {
       name: 'จัตวา',
       base: 2,
       perStack: 0.25,
-      stackCap: 90,
-      maxChance: 24.5
+      stackCap: 90
     },
     5: {
       name: 'เบญจ',
       base: 1.5,
       perStack: 0.25,
-      stackCap: 124,
-      maxChance: 32.5
+      stackCap: 124
     }
   },
   life: {
@@ -50,36 +45,31 @@ const FAIL_STACK_TABLE = {
       name: '+1',
       base: 30,
       perStack: 0,
-      stackCap: 2,
-      maxChance: 30
+      stackCap: 2
     },
     2: {
       name: '+2',
       base: 10,
       perStack: 1,
-      stackCap: 7,
-      maxChance: 17
+      stackCap: 7
     },
     3: {
       name: '+3',
       base: 5,
       perStack: 0.5,
-      stackCap: 24,
-      maxChance: 17
+      stackCap: 24
     },
     4: {
       name: '+4',
       base: 2,
       perStack: 0.25,
-      stackCap: 42,
-      maxChance: 12.5
+      stackCap: 42
     },
     5: {
       name: '+5',
       base: 1.5,
       perStack: 0.15,
-      stackCap: 72,
-      maxChance: 12.3
+      stackCap: 72
     }
   },
   weapon: {
@@ -87,141 +77,121 @@ const FAIL_STACK_TABLE = {
       name: '+1',
       base: 100,
       perStack: 0,
-      stackCap: 0,
-      maxChance: 100
+      stackCap: 0
     },
     2: {
       name: '+2',
       base: 100,
       perStack: 0,
-      stackCap: 0,
-      maxChance: 100
+      stackCap: 0
     },
     3: {
       name: '+3',
       base: 100,
       perStack: 0,
-      stackCap: 0,
-      maxChance: 100
+      stackCap: 0
     },
     4: {
       name: '+4',
       base: 100,
       perStack: 0,
-      stackCap: 0,
-      maxChance: 100
+      stackCap: 0
     },
     5: {
       name: '+5',
       base: 100,
       perStack: 0,
-      stackCap: 0,
-      maxChance: 100
+      stackCap: 0
     },
     6: {
       name: '+6',
       base: 100,
       perStack: 0,
-      stackCap: 0,
-      maxChance: 100
+      stackCap: 0
     },
     7: {
       name: '+7',
       base: 100,
       perStack: 0,
-      stackCap: 0,
-      maxChance: 100
+      stackCap: 0
     },
     8: {
       name: '+8',
       base: 20,
       perStack: 2.5,
-      stackCap: 13,
-      maxChance: 52.5
+      stackCap: 13
     },
     9: {
       name: '+9',
       base: 17.5,
       perStack: 2,
-      stackCap: 14,
-      maxChance: 45.5
+      stackCap: 14
     },
     10: {
       name: '+10',
       base: 15,
       perStack: 1.5,
-      stackCap: 15,
-      maxChance: 37.5
+      stackCap: 15
     },
     11: {
       name: '+11',
       base: 12.5,
       perStack: 1.25,
-      stackCap: 16,
-      maxChance: 32.5
+      stackCap: 16
     },
     12: {
       name: '+12',
       base: 10,
       perStack: 0.75,
-      stackCap: 18,
-      maxChance: 23.5
+      stackCap: 18
     },
     13: {
       name: '+13',
       base: 7.5,
       perStack: 0.63,
-      stackCap: 20,
-      maxChance: 20.1
+      stackCap: 20
     },
     14: {
       name: '+14',
       base: 5,
       perStack: 0.5,
-      stackCap: 25,
-      maxChance: 17.5
+      stackCap: 25
     },
     15: {
       name: '+15',
       base: 2.5,
       perStack: 0.5,
-      stackCap: 25,
-      maxChance: 15
+      stackCap: 25
     },
     16: {
       name: 'เอก',
       base: 15,
       perStack: 1.5,
-      stackCap: 25,
-      maxChance: 52.5
+      stackCap: 25
     },
     17: {
       name: 'โท',
       base: 7.5,
       perStack: 0.75,
-      stackCap: 35,
-      maxChance: 33.75
+      stackCap: 35
     },
     18: {
       name: 'ตรี',
       base: 5,
       perStack: 0.5,
-      stackCap: 44,
-      maxChance: 27
+      stackCap: 44
     },
     19: {
       name: 'จัตวา',
       base: 2,
       perStack: 0.25,
-      stackCap: 90,
-      maxChance: 25
+      stackCap: 90
     },
     20: {
       name: 'เบญจ',
       base: 1.5,
       perStack: 0.15,
-      stackCap: 124,
-      maxChance: 20.1
+      stackCap: 124
     }
   },
   armor: {
@@ -229,141 +199,121 @@ const FAIL_STACK_TABLE = {
       name: '+1',
       base: 100,
       perStack: 0,
-      stackCap: 0,
-      maxChance: 100
+      stackCap: 0
     },
     2: {
       name: '+2',
       base: 100,
       perStack: 0,
-      stackCap: 0,
-      maxChance: 100
+      stackCap: 0
     },
     3: {
       name: '+3',
       base: 100,
       perStack: 0,
-      stackCap: 0,
-      maxChance: 100
+      stackCap: 0
     },
     4: {
       name: '+4',
       base: 100,
       perStack: 0,
-      stackCap: 0,
-      maxChance: 100
+      stackCap: 0
     },
     5: {
       name: '+5',
       base: 100,
       perStack: 0,
-      stackCap: 0,
-      maxChance: 100
+      stackCap: 0
     },
     6: {
       name: '+6',
       base: 20,
       perStack: 2.5,
-      stackCap: 13,
-      maxChance: 52.5
+      stackCap: 13
     },
     7: {
       name: '+7',
       base: 17.5,
       perStack: 2,
-      stackCap: 14,
-      maxChance: 45.5
+      stackCap: 14
     },
     8: {
       name: '+8',
       base: 16.25,
       perStack: 1.75,
-      stackCap: 14,
-      maxChance: 40.75
+      stackCap: 14
     },
     9: {
       name: '+9',
       base: 15,
       perStack: 1.5,
-      stackCap: 15,
-      maxChance: 37.5
+      stackCap: 15
     },
     10: {
       name: '+10',
       base: 12.5,
       perStack: 1.25,
-      stackCap: 16,
-      maxChance: 32.5
+      stackCap: 16
     },
     11: {
       name: '+11',
       base: 11.25,
       perStack: 1,
-      stackCap: 17,
-      maxChance: 28.25
+      stackCap: 17
     },
     12: {
       name: '+12',
       base: 10,
       perStack: 0.75,
-      stackCap: 18,
-      maxChance: 23.5
+      stackCap: 18
     },
     13: {
       name: '+13',
       base: 7.5,
       perStack: 0.63,
-      stackCap: 20,
-      maxChance: 20.1
+      stackCap: 20
     },
     14: {
       name: '+14',
       base: 5,
       perStack: 0.5,
-      stackCap: 25,
-      maxChance: 17.5
+      stackCap: 25
     },
     15: {
       name: '+15',
       base: 2.5,
       perStack: 0.5,
-      stackCap: 25,
-      maxChance: 15
+      stackCap: 25
     },
     16: {
       name: 'เอก',
       base: 15,
       perStack: 1.5,
-      stackCap: 25,
-      maxChance: 52.5
+      stackCap: 25
     },
     17: {
       name: 'โท',
       base: 7.5,
       perStack: 0.75,
-      stackCap: 35,
-      maxChance: 33.75
+      stackCap: 35
     },
     18: {
       name: 'ตรี',
       base: 5,
       perStack: 0.5,
-      stackCap: 44,
-      maxChance: 27
+      stackCap: 44
     },
     19: {
       name: 'จัตวา',
       base: 2,
       perStack: 0.25,
-      stackCap: 90,
-      maxChance: 25
+      stackCap: 90
     },
     20: {
       name: 'เบญจ',
       base: 1.5,
       perStack: 0.15,
-      stackCap: 124,
-      maxChance: 20.1
+      stackCap: 124
     }
   }
 }
@@ -494,7 +444,7 @@ function init() {
     fs.readdir(path, (error, files) => {
       files.forEach(file => {
         ASCII[type].push(fs.readFileSync(`${path}/${file}`, 'utf8'))
-      });
+      })
     })
   });
 
@@ -504,13 +454,23 @@ function init() {
     fs.readdir(path, (error, files) => {
       files.forEach(file => {
         HELP[file.replace('.md', '')] = fs.readFileSync(`${path}/${file}`, 'utf8')
-      });
+      })
     })
-  })()
+  })();
+
+  (() => {
+    Object.keys(FAIL_STACK_TABLE).forEach(function(type) {
+      Object.keys(FAIL_STACK_TABLE[type]).forEach(function(level) {
+        let data = FAIL_STACK_TABLE[type][level]
+  
+        FAIL_STACK_TABLE[type][level].maxChance = data.base + (data.perStack * data.stackCap)
+      });
+    });
+  })();
 }
 
 function randomIntFromInterval(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
+  return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
 function convertEquipmentType(type) {
@@ -676,7 +636,7 @@ function doBid(chat, item, times) {
 
   setTimeout((chat, item, time) => {
     CHANNEL.send(`:money_with_wings: ${chat.member} **${item}** กำลังจะลงตลาด ${time.fromNow()} (${time.format('HH:mm')}) เตรียมไปประมูลของด้วย!`)
-  }, time.clone().subtract(1, 'minutes').diff(moment(), 'milliseconds'), chat, item, time);
+  }, time.clone().subtract(1, 'minutes').diff(moment(), 'milliseconds'), chat, item, time)
 }
 
 function doPanda(chat) {

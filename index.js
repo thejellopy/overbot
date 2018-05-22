@@ -543,6 +543,7 @@ function showEnchant(type, level) {
 ${title} (**${data.name}**)
 ระดับการตีบวก: **${level - 1}** -> **${level}**
 
+โอกาสสำเร็จ: **${data.perStack.toFixed(2)}%** (ต่อ 1 Fail Stack)
 โอกาสสำเร็จต่ำสุด: **${data.base.toFixed(2)}%** (**0** Fail Stack)
 โอกาสสำเร็จสูงสุด: **${data.maxChance.toFixed(2)}%** (**${data.stackCap}** Fail Stack)
 `

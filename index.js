@@ -467,7 +467,7 @@ function init() {
     Object.keys(FAIL_STACK_TABLE).forEach(function(type) {
       Object.keys(FAIL_STACK_TABLE[type]).forEach(function(level) {
         let data = FAIL_STACK_TABLE[type][level]
-  
+
         FAIL_STACK_TABLE[type][level].maxChance = data.base + (data.perStack * data.stackCap)
       });
     });
@@ -669,37 +669,10 @@ function doHelp(chat, type) {
   CHANNEL.send(help(type))
 }
 
-function doClientVerbose(event) {
-  git.short(function (commit) {
-    CHANNEL.send(`:panda_face: (${commit}) client.${event}`)
-  })
-}
-
 client.on('ready', () => {
   init()
 
   CHANNEL = client.channels.find('id', process.env.CHANNEL_ID)
-  doClientVerbose('ready')
-});
-
-client.on('reconnecting', () => {
-  doClientVerbose('reconnecting')
-});
-
-client.on('disconnect', () => {
-  doClientVerbose('disconnect')
-});
-
-client.on('resume', () => {
-  doClientVerbose('resume')
-});
-
-client.on('warn', () => {
-  doClientVerbose('warn')
-});
-
-client.on('error', () => {
-  doClientVerbose('error')
 });
 
 client.on('message', chat => {
@@ -728,27 +701,27 @@ client.on('message', chat => {
         }
 
         return doEnchant(chat, params[1], parseInt(params[2]), parseInt(params[3]))
-      
+
       case '!bid':
         if (params.length !== 3) {
           return doHelp(chat, 'bid')
         }
-      
+
         let bidTimes = params[2].split('.')
-      
+
         if (bidTimes.length !== 2) {
           return doHelp(chat, 'bid')
         }
 
         return doBid(chat, 'item', params[1], bidTimes)
-      
+
       case '!horse':
         if (params.length !== 3) {
           return doHelp(chat, 'horse')
         }
-      
+
         let horseTimes = params[2].split('.')
-      
+
         if (horseTimes.length !== 2) {
           return doHelp(chat, 'horse')
         }

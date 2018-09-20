@@ -447,9 +447,9 @@ function init() {
     fs.readdir(path, (error, files) => {
       files.forEach(file => {
         ASCII[type].push(fs.readFileSync(`${path}/${file}`, 'utf8'))
-      })
-    })
-  })
+      });
+    });
+  });
 
   (() => {
     let path = 'help'
@@ -457,8 +457,8 @@ function init() {
     fs.readdir(path, (error, files) => {
       files.forEach(file => {
         HELP[file.replace('.md', '')] = fs.readFileSync(`${path}/${file}`, 'utf8')
-      })
-    })
+      });
+    });
   })();
 
   (() => {
@@ -467,8 +467,8 @@ function init() {
         let data = FAIL_STACK_TABLE[type][level]
 
         FAIL_STACK_TABLE[type][level].maxChance = data.base + (data.perStack * data.stackCap)
-      })
-    })
+      });
+    });
   })();
 }
 
@@ -625,7 +625,7 @@ function doBid(chat, type, item, times) {
     minute: parseInt(times[1]),
     second: 0,
     millisecond: 0,
-  })
+  });
 
   let delay = BID_DELAY_TABLE[type]
 
@@ -660,7 +660,7 @@ function doEnchantPlace(chat) {
 **${data.name}**
 `, {
     file: data.image
-  })
+  });
 }
 
 function doChangePrefix(chat, prefix) {
@@ -677,7 +677,7 @@ client.on('ready', () => {
   init()
 
   console.log('Overbot is runing.')
-})
+});
 
 client.on('message', chat => {
   let content = chat.content.toLocaleLowerCase()
@@ -749,6 +749,6 @@ client.on('message', chat => {
         return doHelp(chat, 'help')
     }
   }
-})
+});
 
 client.login(process.env.BOT_TOKEN)

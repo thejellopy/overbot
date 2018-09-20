@@ -324,8 +324,7 @@ const FAIAL_STACK_TITLE = {
   armor: ':shield: **เครื่องป้องกัน**'
 }
 
-const ENCHANT_PLACE = [
-  {
+const ENCHANT_PLACE = [{
     name: 'โบสถ์ไฮเดล',
     image: 'https://cdn.discordapp.com/attachments/446030495923437579/446032733832085515/2018-05-16_380701394.JPG'
   },
@@ -450,7 +449,7 @@ function init() {
         ASCII[type].push(fs.readFileSync(`${path}/${file}`, 'utf8'))
       })
     })
-  });
+  })
 
   (() => {
     let path = 'help'
@@ -463,13 +462,13 @@ function init() {
   })();
 
   (() => {
-    Object.keys(FAIL_STACK_TABLE).forEach(function(type) {
-      Object.keys(FAIL_STACK_TABLE[type]).forEach(function(level) {
+    Object.keys(FAIL_STACK_TABLE).forEach(function (type) {
+      Object.keys(FAIL_STACK_TABLE[type]).forEach(function (level) {
         let data = FAIL_STACK_TABLE[type][level]
 
         FAIL_STACK_TABLE[type][level].maxChance = data.base + (data.perStack * data.stackCap)
-      });
-    });
+      })
+    })
   })();
 }
 
@@ -519,7 +518,7 @@ function calculateEnchantChance(type, level, stack) {
 function calculateEnchant(type, level, stack) {
   let data = calculateEnchantChance(type, level, stack)
 
-  if (! data) {
+  if (!data) {
     return false
   }
 
@@ -537,13 +536,13 @@ ${title} (**${data.name}**)
 function showEnchant(type, level) {
   let data = FAIL_STACK_TABLE[type][level]
 
-  if (! data) {
+  if (!data) {
     return false
   }
 
   let title = FAIAL_STACK_TITLE[type]
 
-  return`
+  return `
 ${title} (**${data.name}**)
 ระดับการตีบวก: **${level - 1}** -> **${level}**
 
@@ -576,7 +575,7 @@ function help(type) {
 function doFs(chat, equipmentType, enchantLevel, failStack = undefined) {
   equipmentType = convertEquipmentType(equipmentType)
 
-  if (! equipmentType) {
+  if (!equipmentType) {
     chat.channel.send(':no_entry_sign: ไม่เจอข้อมูลอุปกรณ์สวมใส่ที่เลือก')
 
     return
@@ -590,7 +589,7 @@ function doFs(chat, equipmentType, enchantLevel, failStack = undefined) {
     response = calculateEnchant(equipmentType, enchantLevel, failStack)
   }
 
-  if (! response) {
+  if (!response) {
     chat.channel.send(':no_entry_sign: ไม่เจอข้อมูล')
 
     return
@@ -602,7 +601,7 @@ function doFs(chat, equipmentType, enchantLevel, failStack = undefined) {
 function doEnchant(chat, equipmentType, enchantLevel, failStack) {
   equipmentType = convertEquipmentType(equipmentType)
 
-  if (! equipmentType) {
+  if (!equipmentType) {
     chat.channel.send(':no_entry_sign: ไม่เจอข้อมูลอุปกรณ์ที่เลือก')
 
     return
@@ -660,8 +659,8 @@ function doEnchantPlace(chat) {
   chat.channel.send(`
 **${data.name}**
 `, {
-  file: data.image
-})
+    file: data.image
+  })
 }
 
 function doChangePrefix(chat, prefix) {
@@ -676,7 +675,7 @@ function doHelp(chat, type) {
 
 client.on('ready', () => {
   init()
-});
+})
 
 client.on('message', chat => {
   let content = chat.content.toLocaleLowerCase()
@@ -693,7 +692,7 @@ client.on('message', chat => {
 
         let failStack = parseInt(params[3])
 
-        if (! failStack) {
+        if (!failStack) {
           failStack = undefined
         }
 
@@ -748,7 +747,7 @@ client.on('message', chat => {
         return doHelp(chat, 'help')
     }
   }
-});
+})
 
 client.login(process.env.BOT_TOKEN)
 console.log('Overbot is runing.')

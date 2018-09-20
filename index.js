@@ -1,6 +1,5 @@
 require('dotenv').load()
 
-const git = require('git-rev')
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const fs = require('fs')
@@ -440,7 +439,7 @@ let ASCII = {
 
 let HELP = {}
 
-let CHANNEL
+let PREFIX = '!'
 
 function init() {
   ['sheep', 'panda'].forEach(type => {
@@ -578,7 +577,7 @@ function doFs(chat, equipmentType, enchantLevel, failStack = undefined) {
   equipmentType = convertEquipmentType(equipmentType)
 
   if (! equipmentType) {
-    CHANNEL.send(':no_entry_sign: ไม่เจอข้อมูลอุปกรณ์สวมใส่ที่เลือก')
+    chat.channel.send(':no_entry_sign: ไม่เจอข้อมูลอุปกรณ์สวมใส่ที่เลือก')
 
     return
   }
@@ -592,19 +591,19 @@ function doFs(chat, equipmentType, enchantLevel, failStack = undefined) {
   }
 
   if (! response) {
-    CHANNEL.send(':no_entry_sign: ไม่เจอข้อมูล')
+    chat.channel.send(':no_entry_sign: ไม่เจอข้อมูล')
 
     return
   }
 
-  CHANNEL.send(response)
+  chat.channel.send(response)
 }
 
 function doEnchant(chat, equipmentType, enchantLevel, failStack) {
   equipmentType = convertEquipmentType(equipmentType)
 
   if (! equipmentType) {
-    CHANNEL.send(':no_entry_sign: ไม่เจอข้อมูลอุปกรณ์ที่เลือก')
+    chat.channel.send(':no_entry_sign: ไม่เจอข้อมูลอุปกรณ์ที่เลือก')
 
     return
   }
@@ -615,9 +614,9 @@ function doEnchant(chat, equipmentType, enchantLevel, failStack) {
   let title = FAIAL_STACK_TITLE[equipmentType]
 
   if (random <= chance) {
-    CHANNEL.send(`ท่าน [${chat.member}] ได้รับ [${response.name} ${title}] เพิ่มประสิทธิภาพสำเร็จ`)
+    chat.channel.send(`ท่าน [${chat.member}] ได้รับ [${response.name} ${title}] เพิ่มประสิทธิภาพสำเร็จ`)
   } else {
-    CHANNEL.send(`[${chat.member}] พ่ายแพ้ [${response.name} ${title}] เพิ่มประสิทธิภาพล้มเหลว`)
+    chat.channel.send(`[${chat.member}] พ่ายแพ้ [${response.name} ${title}] เพิ่มประสิทธิภาพล้มเหลว`)
   }
 }
 
@@ -635,54 +634,59 @@ function doBid(chat, type, item, times) {
   let timeDiffInMinute = time.diff(moment(), 'minutes')
 
   if (timeDiffInMinute < 0 || timeDiffInMinute > delay) {
-    CHANNEL.send(':no_entry_sign: เวลาประมูลของไม่ถูกต้อง')
+    chat.channel.send(':no_entry_sign: เวลาประมูลของไม่ถูกต้อง')
 
     return
   }
 
-  CHANNEL.send(`:money_with_wings: **${item}** ${time.fromNow()} จะลงตลาด (${time.format('HH:mm')})`)
+  chat.channel.send(`:money_with_wings: **${item}** ${time.fromNow()} จะลงตลาด (${time.format('HH:mm')})`)
 
   setTimeout((chat, item, time) => {
-    CHANNEL.send(`:money_with_wings: ${chat.member} **${item}** กำลังจะลงตลาด ${time.fromNow()} (${time.format('HH:mm')}) เตรียมไปประมูลของด้วย!`)
+    chat.channel.send(`:money_with_wings: ${chat.member} **${item}** กำลังจะลงตลาด ${time.fromNow()} (${time.format('HH:mm')}) เตรียมไปประมูลของด้วย!`)
   }, time.clone().subtract(1, 'minutes').diff(moment(), 'milliseconds'), chat, item, time)
 }
 
 function doPanda(chat) {
-  CHANNEL.send(randomASCIIArt('panda'))
+  chat.channel.send(randomASCIIArt('panda'))
 }
 
 function doSheep(chat) {
-  CHANNEL.send(randomASCIIArt('sheep'))
+  chat.channel.send(randomASCIIArt('sheep'))
 }
 
 function doEnchantPlace(chat) {
   let data = randomEnchantPlace()
 
-  CHANNEL.send(`
+  chat.channel.send(`
 **${data.name}**
 `, {
   file: data.image
 })
 }
 
+function doChangePrefix(chat, prefix) {
+  chat.channel.send(`:wrench: คำสั่งถูกเปลี่ยนจาก \`${PREFIX}\` เป็น \`${prefix}\``)
+
+  PREFIX = prefix
+}
+
 function doHelp(chat, type) {
-  CHANNEL.send(help(type))
+  chat.channel.send(help(type))
 }
 
 client.on('ready', () => {
   init()
-
-  CHANNEL = client.channels.find('id', process.env.CHANNEL_ID)
 });
 
 client.on('message', chat => {
   let content = chat.content.toLocaleLowerCase()
 
-  if (content.startsWith('!')) {
+  if (content.startsWith(PREFIX)) {
     let params = content.split(' ')
+    params[0] = params[0].slice(1)
 
     switch (params[0]) {
-      case '!fs':
+      case 'fs':
         if (params.length !== 3 && params.length !== 4) {
           return doHelp(chat, 'fs')
         }
@@ -695,14 +699,14 @@ client.on('message', chat => {
 
         return doFs(chat, params[1], parseInt(params[2]), failStack)
 
-      case '!enc':
+      case 'enc':
         if (params.length !== 4) {
           return doHelp(chat, 'enc')
         }
 
         return doEnchant(chat, params[1], parseInt(params[2]), parseInt(params[3]))
 
-      case '!bid':
+      case 'bid':
         if (params.length !== 3) {
           return doHelp(chat, 'bid')
         }
@@ -715,7 +719,7 @@ client.on('message', chat => {
 
         return doBid(chat, 'item', params[1], bidTimes)
 
-      case '!horse':
+      case 'horse':
         if (params.length !== 3) {
           return doHelp(chat, 'horse')
         }
@@ -728,19 +732,23 @@ client.on('message', chat => {
 
         return doBid(chat, 'horse', params[1], horseTimes)
 
-      case '!บูชาเทพเจ้าแพนด้า':
+      case 'บูชาเทพเจ้าแพนด้า':
         return doPanda(chat)
 
-      case '!บูชาเทพเจ้าแกะ':
+      case 'บูชาเทพเจ้าแกะ':
         return doSheep(chat)
 
-      case '!ตีบวกไหนดีวะ':
-        return doEnchantPlace()
+      case 'ตีบวกไหนดีวะ':
+        return doEnchantPlace(chat)
 
-      default:
+      case 'prefix':
+        return doChangePrefix(chat, params[1])
+
+      case 'help':
         return doHelp(chat, 'help')
     }
   }
 });
 
 client.login(process.env.BOT_TOKEN)
+console.log('Overbot is runing.')

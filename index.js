@@ -675,6 +675,8 @@ function doHelp(chat, type) {
 
 client.on('ready', () => {
   init()
+
+  console.log('Overbot is runing.')
 })
 
 client.on('message', chat => {
@@ -750,4 +752,3 @@ client.on('message', chat => {
 })
 
 client.login(process.env.BOT_TOKEN)
-console.log('Overbot is runing.')
